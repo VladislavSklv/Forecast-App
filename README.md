@@ -7,7 +7,7 @@ This is a pet-project which I made for improving my skills in Frontend developme
 - Api: https://www.weatherapi.com/
 - [Here you can try the app](forecast.testwebprojects.ru)
 
-# Stack:
+### Stack:
 - React
 - Redux Toolkit
 - Tailwind
