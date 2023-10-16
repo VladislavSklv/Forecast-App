@@ -2,21 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-scrollbar::-webkit-scrollbar {
+.myscrollbar::-webkit-scrollbar {
     width: 4px;
     cursor: pointer;
-    /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/
-
 }
-.header-scrollbar::-webkit-scrollbar-track {
+.myscrollbar::-webkit-scrollbar-track {
     background-color: rgba(229, 231, 235, var(--bg-opacity));
     cursor: pointer;
-    /*background: red;*/
 }
-.header-scrollbar::-webkit-scrollbar-thumb {
+.myscrollbar::-webkit-scrollbar-thumb {
     cursor: pointer;
     background-color: rgb(171, 177, 196);
-    /*outline: 1px solid slategrey;*/
 }
 
 .toggle-checkbox:checked {
