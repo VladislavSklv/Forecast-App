@@ -4,7 +4,7 @@ import { ICity, IGetWeatherProps, IWeather } from '../models/models'
 export const weatherApi = createApi({
     reducerPath: 'weatherApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://api.weatherapi.com/v1/123',
+        baseUrl: 'http://api.weatherapi.com/v1/',
         headers: {
             key: '8313190bb7fe4f09beb154535231610'
         }
@@ -12,7 +12,7 @@ export const weatherApi = createApi({
     endpoints: build => ({
         getWeather: build.query<IWeather, IGetWeatherProps>({
             query: ({search, aqi, alerts}: {search: string, aqi: string, alerts: string}) => ({
-                url: 'forecast.json1231',
+                url: '123/forecast.json',
                 params: {
                     q: search,
                     aqi,

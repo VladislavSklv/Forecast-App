@@ -1,5 +1,7 @@
 import React from 'react';
 import Searchbar from './Searchbar';
+import { useActions, useAppSelector } from '../hooks';
+import DarkModeBtn from './DarkModeBtn';
 
 interface sidebarProps{
     setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +10,9 @@ interface sidebarProps{
 }
 
 const Sidebar: React.FC<sidebarProps> = ({setDarkMode, query, setQuery}) => {
+    const {removeCity} = useActions()
+    const {cities} = useAppSelector(state => state.chosenCities)
+
     return (
         <aside className="position-relative sidebar w-48 -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
             <div className="my-2 w-full border-b-4 border-indigo-100 text-center">
@@ -16,37 +21,26 @@ const Sidebar: React.FC<sidebarProps> = ({setDarkMode, query, setQuery}) => {
             <div className="my-4 font-mono text-base font-bold tracking-widest">
                 <Searchbar query={query} setQuery={setQuery}/>
                 <ul className='list-none max-h-[63vh] overflow-y-auto myscrollbar box-border pr-1 mt-2'>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>Moscow</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
-                    <li className='my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'>London</li>
+                    {cities.length > 0 && 
+                        <>
+                            {cities.map(city => (
+                                <li 
+                                    key={city.id}
+                                    className='relative my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'
+                                >{city.name}
+                                    <span 
+                                        className='absolute right-2 top-[50%] translate-y-[-50%] hover:text-red-700 transition-all' 
+                                        onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+                                            e.preventDefault()
+                                            removeCity(city)
+                                        }}
+                                    >&#10006;</span>
+                                </li>
+                            ))}
+                        </>
+                    }
                 </ul>
-                <div className='absolute bottom-0 left-0 w-[100%] pb-4 pl-4 pt-2 flex items-center bg-white'>
-                    <p className="text-lg mr-3">Dark mode</p>
-                    <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                        <input 
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                if(e.target.checked) setDarkMode(true)
-                                else setDarkMode(false)
-                            }}
-                            type="checkbox" 
-                            name="toggle" 
-                            id="toggle" 
-                            className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-                        <label htmlFor="toggle" className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 cursor-pointer"></label>
-                    </div>
-                </div>
+                <DarkModeBtn setDarkMode={setDarkMode}/>
             </div>
         </aside>
     );
