@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import { IGetWeatherProps, IWeather } from '../models/models'
+import { ICity, IGetWeatherProps, IWeather } from '../models/models'
 
 export const weatherApi = createApi({
     reducerPath: 'weatherApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://api.weatherapi.com/v1/1111',
+        baseUrl: 'http://api.weatherapi.com/v1/123',
         headers: {
             key: '8313190bb7fe4f09beb154535231610'
         }
@@ -12,15 +12,23 @@ export const weatherApi = createApi({
     endpoints: build => ({
         getWeather: build.query<IWeather, IGetWeatherProps>({
             query: ({search, aqi, alerts}: {search: string, aqi: string, alerts: string}) => ({
-                url: 'forecast.json',
+                url: 'forecast.json1231',
                 params: {
                     q: search,
                     aqi,
                     alerts
                 }
             })
+        }),
+        getCities: build.query<ICity[], {query: string}>({
+            query: ({query}: {query: string}) => ({
+                url: 'search.json',
+                params: {
+                    q: query
+                }
+            })
         })
     })
 })
 
-export const {useGetWeatherQuery} = weatherApi
+export const {useGetWeatherQuery, useGetCitiesQuery} = weatherApi

@@ -146,3 +146,13 @@ export interface ICondition3 {
     icon: string
     code: number
 }
+
+export interface ICity {
+    id: number
+    name: string
+    region: string
+    country: string
+    lat: number
+    lon: number
+    url: string
+}
