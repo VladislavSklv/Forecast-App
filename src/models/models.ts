@@ -1,5 +1,5 @@
 export interface IGetWeatherProps {
-    search: string,
+    search: number,
     aqi: string,
     alerts: string
 }

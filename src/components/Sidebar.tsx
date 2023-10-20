@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Searchbar from './Searchbar';
-import { useActions, useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks';
 import DarkModeBtn from './DarkModeBtn';
+import SidebarItem from './SidebarItem';
 
-interface sidebarProps{
-    setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-    query: string;
-    setQuery: React.Dispatch<React.SetStateAction<string>>;
+interface sidebarProps {
+    setCity: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Sidebar: React.FC<sidebarProps> = ({setDarkMode, query, setQuery}) => {
-    const {removeCity} = useActions()
+const Sidebar: React.FC<sidebarProps> = ({setCity}) => {
     const {cities} = useAppSelector(state => state.chosenCities)
+	const [darkMode, setDarkMode] = useState(false)
+	const [query, setQuery] = useState('')
 
     return (
         <aside className="position-relative sidebar w-48 -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
@@ -24,18 +24,7 @@ const Sidebar: React.FC<sidebarProps> = ({setDarkMode, query, setQuery}) => {
                     {cities.length > 0 && 
                         <>
                             {cities.map(city => (
-                                <li 
-                                    key={city.id}
-                                    className='relative my-2 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer'
-                                >{city.name}
-                                    <span 
-                                        className='absolute right-2 top-[50%] translate-y-[-50%] hover:text-red-700 transition-all' 
-                                        onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
-                                            e.preventDefault()
-                                            removeCity(city)
-                                        }}
-                                    >&#10006;</span>
-                                </li>
+                                <SidebarItem setCity={setCity} city={city} key={city.id}/>
                             ))}
                         </>
                     }
