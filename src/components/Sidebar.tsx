@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Searchbar from './Searchbar';
 import { useAppSelector } from '../hooks';
 import DarkModeBtn from './DarkModeBtn';
 import SidebarItem from './SidebarItem';
 
 interface sidebarProps {
-    setCity: React.Dispatch<React.SetStateAction<number>>
+    setCity: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Sidebar: React.FC<sidebarProps> = ({setCity}) => {

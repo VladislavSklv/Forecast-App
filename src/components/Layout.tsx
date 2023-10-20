@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 
 interface layoutProps {
-    setCity: React.Dispatch<React.SetStateAction<number>>
+    setCity: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Layout: React.FC<layoutProps> = ({setCity}) => {

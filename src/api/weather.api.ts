@@ -11,8 +11,8 @@ export const weatherApi = createApi({
     }), 
     endpoints: build => ({
         getWeather: build.query<IWeather, IGetWeatherProps>({
-            query: ({search, aqi, alerts}: {search: number, aqi: string, alerts: string}) => ({
-                url: '123/forecast.json',
+            query: ({search, aqi, alerts}: {search: string, aqi: string, alerts: string}) => ({
+                url: 'forecast.json',
                 params: {
                     q: search,
                     aqi,
