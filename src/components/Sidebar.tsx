@@ -14,7 +14,7 @@ const Sidebar: React.FC<sidebarProps> = ({setCity}) => {
 	const [query, setQuery] = useState('')
 
     return (
-        <aside className="position-relative sidebar w-48 -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
+        <aside className="position-relative shrink-0 grow-0 sidebar w-48 -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
             <div className="my-2 w-full border-b-4 border-indigo-100 text-center">
                 <span className="font-mono text-xl font-bold tracking-widest">Forecast App</span>
             </div>

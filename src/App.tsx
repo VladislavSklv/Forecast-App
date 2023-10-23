@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
-import { useGetWeatherQuery } from './api/weather.api';
+import { useLazyGetWeatherQuery } from './api/weather.api';
 import Layout from './components/Layout';
 import MainPage from './pages/MainPage';
 
 
 function App() {
 	const [city, setCity] = useState('')
-	const {isError, isLoading, data} = useGetWeatherQuery({search: city, aqi: 'yes', alerts: 'no'})
+	const [trigger, {isError, isLoading, data}] = useLazyGetWeatherQuery()
 
 	useEffect(() => {
-		console.log(city)
-		console.log(data)
-	} , [data])
+		if (city.length > 0) trigger({search: city, aqi: 'yes', alerts: 'no'})
+	}, [city])
 
 	return (
 		<Routes>

@@ -4,6 +4,7 @@
 
 .myscrollbar::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
     cursor: pointer;
 }
 .myscrollbar::-webkit-scrollbar-track {

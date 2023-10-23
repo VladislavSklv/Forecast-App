@@ -16,7 +16,8 @@ export const weatherApi = createApi({
                 params: {
                     q: search,
                     aqi,
-                    alerts
+                    alerts,
+                    days: 3
                 }
             })
         }),
@@ -31,4 +32,4 @@ export const weatherApi = createApi({
     })
 })
 
-export const {useGetWeatherQuery, useGetCitiesQuery} = weatherApi
+export const {useLazyGetWeatherQuery, useGetCitiesQuery} = weatherApi
