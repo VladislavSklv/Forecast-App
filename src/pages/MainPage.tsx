@@ -27,7 +27,7 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
             {city.length > 0 && data !== undefined && 
                 <div className='relative'>
                     <div>{data.location.country}, {data.location.region}, {data.location.name}</div>
-                    <div className='text-sm text-gray-500'>{data.forecast.forecastday[0].date}</div>
+                    <div className='text-sm text-gray-500'>Today is {data.forecast.forecastday[0].date.replaceAll('-', '.')}</div>
                     <ul className='myscrollbar w-[70vw] relative flex overflow-x-auto'>
                         {data.forecast.forecastday.map(day => (
                             <li
@@ -36,15 +36,19 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
                                 }}
                                 className='text-sm shrink-0 my-2 mx-1 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer' 
                                 key={day.date}
-                            >{day.date}</li>
+                            >{day.date.replaceAll('-', '.')}</li>
                         ))}
                     </ul>
                     <ul className='myscrollbar w-[70vw] relative flex overflow-x-auto'>
                         {forecastDay !== undefined && forecastDay.hour.map(hour => (
                                 <li
-                                    className='text-sm shrink-0 my-2 mx-1 border-2 border-indigo-200 rounded-full px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer' 
+                                    className='text-sm shrink-0 my-2 mx-1 border-2 border-indigo-200 rounded-[20px] px-2 py-1 shadow-sm transition-all' 
                                     key={hour.time}
-                                >{hour.time.replace(forecastDay.date, '')}</li>
+                                >
+                                    <p>{hour.time.replace(forecastDay.date, '')}</p>
+                                    <span className='relative'><img className='mx-auto w-[40px]' src={hour.condition.icon} alt="weather-icon" /></span>
+                                    <p className='tracking-normal'>{hour.temp_c}°C</p>
+                                </li>
                             ))
                         }
                     </ul>
@@ -65,7 +69,6 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
                             :
                                 <div>It won`t snow with chance: {100 - forecastDay.day.daily_chance_of_snow}%</div>
                             }
-                            <div>{forecastDay.day.avgtemp_c}</div>
                         </div>
                     }
                 </div>
