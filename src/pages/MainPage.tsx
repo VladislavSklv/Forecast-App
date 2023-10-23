@@ -23,10 +23,10 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
         <>
             {isError && city.length > 0 && <ErrorBlock/>}
             {isLoading && <Loader/>}
-            {!isLoading && data === undefined && <p>You`ve not chosen any city</p>}
+            {!isLoading && data === undefined || city.length === 0 && <div className='flex justify-center items-center h-[100%]'>You`ve not chosen any city</div>}
             {city.length > 0 && data !== undefined && 
                 <div className='relative'>
-                    <div>{data.location.country}, {data.location.region}, {data.location.name}</div>
+                    <div>{data.location.country.length > 0 && data.location.country + ', '}{data.location.region.length > 0 && data.location.region + ', '}{data.location.name.length > 0 && data.location.name}</div>
                     <div className='text-sm text-gray-500'>Today is {data.forecast.forecastday[0].date.replaceAll('-', '.')}</div>
                     <ul className='myscrollbar w-[70vw] relative flex overflow-x-auto'>
                         {data.forecast.forecastday.map(day => (

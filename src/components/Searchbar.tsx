@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useDebounce } from '../hooks/debounce';
 import { useGetCitiesQuery } from '../api/weather.api';
-import { useActions } from '../hooks';
+import { useActions, useAppSelector } from '../hooks';
 import ErrorBlock from './ErrorBlock';
 import Loader from './Loader';
 
@@ -14,6 +14,7 @@ const Searchbar: React.FC<searchbarProps> = ({query, setQuery}) => {
     const [dropdown, setDropdown] = useState(false)
     const debounced = useDebounce(query)
     const {addCity} = useActions()
+    const {cities: chosenCities} = useAppSelector(state => state.chosenCities)
     const {data: cities, isLoading, isError} = useGetCitiesQuery({query: debounced}, {
         skip: debounced.length < 3,
         refetchOnFocus: true
@@ -49,8 +50,13 @@ const Searchbar: React.FC<searchbarProps> = ({query, setQuery}) => {
                             key={city.id} 
                             className='border-t-2 border-indigo-300 px-2 py-2 first:border-0 cursor-pointer'
                             onClick={() => {
-                                addCity(city)
+                                let checker = 1
+                                chosenCities.map((chosenCity) => {
+                                    if(chosenCity.id === city.id) checker = 0 
+                                })
+                                if(checker) addCity(city)
                                 setDropdown(false)
+                                setQuery("")
                             }}
                         >{city.name}</li>
                     ))}

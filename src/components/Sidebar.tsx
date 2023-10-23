@@ -5,10 +5,11 @@ import DarkModeBtn from './DarkModeBtn';
 import SidebarItem from './SidebarItem';
 
 interface sidebarProps {
+    chosenCity: string
     setCity: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Sidebar: React.FC<sidebarProps> = ({setCity}) => {
+const Sidebar: React.FC<sidebarProps> = ({setCity, chosenCity}) => {
     const {cities} = useAppSelector(state => state.chosenCities)
 	const [darkMode, setDarkMode] = useState(false)
 	const [query, setQuery] = useState('')
@@ -24,7 +25,7 @@ const Sidebar: React.FC<sidebarProps> = ({setCity}) => {
                     {cities.length > 0 && 
                         <>
                             {cities.map(city => (
-                                <SidebarItem setCity={setCity} city={city} key={city.id}/>
+                                <SidebarItem chosenCity={chosenCity} setCity={setCity} city={city} key={city.id}/>
                             ))}
                         </>
                     }

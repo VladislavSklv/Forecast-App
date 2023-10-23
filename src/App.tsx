@@ -15,7 +15,7 @@ function App() {
 
 	return (
 		<Routes>
-			<Route path='/' element={<Layout setCity={setCity}/>}>
+			<Route path='/' element={<Layout chosenCity={city} setCity={setCity}/>}>
 				<Route index element={<MainPage city={city} isLoading={isLoading} isError={isError} data={data} />}/>
 			</Route>
 		</Routes>
