@@ -14,7 +14,7 @@ const SidebarItem: React.FC<sidebarItemProps> = ({city, setCity, chosenCity}) =>
 
     return (
         <li 
-            className={`${activeClass} relative my-2 border-2 border-indigo-200 rounded-full pl-3 pr-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer`}
+            className={`${activeClass} relative my-2 border-2 border-indigo-200 rounded-[20px] px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer`}
             onClick={() => {
                 setCity(city.url)
             }}
