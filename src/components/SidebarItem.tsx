@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useActions } from '../hooks';
 import { ICity } from '../models/models';
 
@@ -14,7 +14,7 @@ const SidebarItem: React.FC<sidebarItemProps> = ({city, setCity, chosenCity}) =>
 
     return (
         <li 
-            className={`${activeClass} relative my-2 border-2 border-indigo-200 rounded-[20px] px-2 py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer`}
+            className={`${activeClass} bg-gray-900/[.02] relative my-2 border-2 border-indigo-200 rounded-[20px] pl-2 pr-[10px] py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer`}
             onClick={() => {
                 setCity(city.url)
             }}
