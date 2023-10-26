@@ -6,9 +6,10 @@ interface sidebarItemProps {
     chosenCity: string
     city: ICity
     setCity: React.Dispatch<React.SetStateAction<string>>
+    setIsSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SidebarItem: React.FC<sidebarItemProps> = ({city, setCity, chosenCity}) => {
+const SidebarItem: React.FC<sidebarItemProps> = ({city, setCity, chosenCity, setIsSidebar}) => {
     const {removeCity} = useActions()
     let activeClass = chosenCity === city.url ? 'active' : ''
 
@@ -17,6 +18,7 @@ const SidebarItem: React.FC<sidebarItemProps> = ({city, setCity, chosenCity}) =>
             className={`${activeClass} bg-gray-900/[.02] relative my-2 border-2 border-indigo-200 rounded-[20px] pl-2 pr-[10px] py-1 hover:bg-indigo-100 hover:shadow-md shadow-sm transition-all cursor-pointer`}
             onClick={() => {
                 setCity(city.url)
+                setIsSidebar(false)
             }}
         >{city.name}
             <span 

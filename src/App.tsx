@@ -8,6 +8,7 @@ import MainPage from './pages/MainPage';
 function App() {
 	const [city, setCity] = useState('')
 	const [trigger, {isError, isLoading, data}] = useLazyGetWeatherQuery()
+	const [isSidebar, setIsSidebar] = useState(false)
 
 	useEffect(() => {
 		if (city.length > 0) trigger({search: city, aqi: 'yes', alerts: 'no'})
@@ -15,8 +16,8 @@ function App() {
 
 	return (
 		<Routes>
-			<Route path='/' element={<Layout chosenCity={city} setCity={setCity}/>}>
-				<Route index element={<MainPage city={city} isLoading={isLoading} isError={isError} data={data} />}/>
+			<Route path='/' element={<Layout isSidebar={isSidebar} setIsSidebar={setIsSidebar} chosenCity={city} setCity={setCity}/>}>
+				<Route index element={<MainPage setIsSidebar={setIsSidebar} city={city} isLoading={isLoading} isError={isError} data={data} />}/>
 			</Route>
 		</Routes>
 	);

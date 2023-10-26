@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Searchbar from './Searchbar';
 import { useAppSelector } from '../hooks';
 import DarkModeBtn from './DarkModeBtn';
@@ -7,15 +7,21 @@ import SidebarItem from './SidebarItem';
 interface sidebarProps {
     chosenCity: string
     setCity: React.Dispatch<React.SetStateAction<string>>
+    isSidebar: boolean
+    setIsSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Sidebar: React.FC<sidebarProps> = ({setCity, chosenCity}) => {
+const Sidebar: React.FC<sidebarProps> = ({setCity, chosenCity, isSidebar, setIsSidebar}) => {
     const {cities} = useAppSelector(state => state.chosenCities)
 	const [darkMode, setDarkMode] = useState(false)
 	const [query, setQuery] = useState('')
 
     return (
-        <aside className="position-relative shrink-0 grow-0 sidebar w-48 -translate-x-full transform bg-white p-4 transition-transform duration-150 ease-in md:translate-x-0 md:shadow-md">
+        <aside 
+            className={isSidebar 
+                ? "translate-x-0 shrink-0 duration-300 sidebar w-48 fixed transform bg-white p-4 transition-transform duration-150 ease-in z-50 h-[100%] md:translate-x-0 md:shadow-md md:relative md:h-auto"
+                : "translate-x-[-150%] duration-300 shrink-0 sidebar w-48 fixed transform bg-white p-4 transition-transform duration-150 ease-in z-50 h-[100%] md:translate-x-0 md:shadow-md md:relative md:h-auto"
+        }>
             <div className="my-2 w-full border-b-4 border-indigo-100 text-center">
                 <span className="font-mono text-xl font-bold tracking-widest">Forecast App</span>
             </div>
@@ -25,7 +31,7 @@ const Sidebar: React.FC<sidebarProps> = ({setCity, chosenCity}) => {
                     {cities.length > 0 && 
                         <>
                             {cities.map(city => (
-                                <SidebarItem chosenCity={chosenCity} setCity={setCity} city={city} key={city.id}/>
+                                <SidebarItem setIsSidebar={setIsSidebar} chosenCity={chosenCity} setCity={setCity} city={city} key={city.id}/>
                             ))}
                         </>
                     }

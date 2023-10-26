@@ -8,9 +8,10 @@ interface mainPageProps {
     isError: boolean
     isLoading: boolean
     city: string
+    setIsSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => {
+const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city, setIsSidebar}) => {
     const [forecastDay, setForecastDay] = useState<IForecastday | undefined>(data?.forecast.forecastday[0])
 
     useEffect(() => {
@@ -27,9 +28,9 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
             {city.length > 0 && data !== undefined && 
                 <>
                     <div className='flex flex-col items-center mx-auto'>
-                        <div className='text-center text-xl mx-auto'>{data.location.country.length > 0 && data.location.country + ', '}{data.location.region.length > 0 && data.location.region + ', '}{data.location.name.length > 0 && data.location.name}</div>
+                        <div className='text-center text-xl mx-auto w-[calc(100%-4rem)] md:w-full'>{data.location.country.length > 0 && data.location.country + ', '}{data.location.region.length > 0 && data.location.region + ', '}{data.location.name.length > 0 && data.location.name}</div>
                         <div className='text-sm text-gray-500 text-center mx-auto'>Today is {data.forecast.forecastday[0].date.replaceAll('-', '.')}</div>
-                        <ul className='myscrollbar max-w-[100%] relative flex overflow-x-auto mx-auto'>
+                        <ul className='myscrollbar max-w-[100%] relative flex flex-wrap justify-center items-center mx-auto'>
                             {forecastDay !== undefined && data.forecast.forecastday.map(day => (
                                 <li
                                     onClick={() => {
@@ -70,7 +71,7 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
                             </div>
                             
                             <div className='relative mx-auto mt-5'>
-                                <div className='flex justify-center items-center w-[300px] h-[120px] border-[3px] border-indigo-500/[.7] rounded-[10em/4em] border-b-0 border-r-0 border-l-0 mx-auto'>
+                                <div className='flex justify-center items-center w-[230px] h-[90px] sm:w-[300px] sm:h-[120px] border-[3px] border-indigo-500/[.7] rounded-[10em/4em] border-b-0 border-r-0 border-l-0 mx-auto'>
                                     <span className='relative bg-gray-400/[.6] w-full h-[2px] block bottom-[5px]'></span>
                                 </div>
                                 <div className='absolute w-[50px] left-0 top-[40%] translate-x-[-75%] flex flex-col justify-center items-center'>
@@ -97,7 +98,11 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city}) => 
                             ))
                         }
                     </ul>
-                    
+                    <div onClick={() => setIsSidebar(true)} className='absolute cursor-pointer top-3 left-3 h-[17px] w-[20px] flex flex-col justify-between md:opacity-0 md:pointer-events-none md:hidden'>
+                        <span className='shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
+                        <span className='shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
+                        <span className='shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
+                    </div>
                 </>
             }
         </>
