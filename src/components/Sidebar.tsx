@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Searchbar from './Searchbar';
 import { useAppSelector } from '../hooks';
-import DarkModeBtn from './DarkModeBtn';
+import DarkModeBtn from './UI/DarkModeBtn';
 import SidebarItem from './SidebarItem';
 
 interface sidebarProps {

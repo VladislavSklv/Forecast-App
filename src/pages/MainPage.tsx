@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { IForecastday, IWeather } from '../models/models';
 import Loader from '../components/Loader';
 import ErrorBlock from '../components/ErrorBlock';
+import Hamburger from '../components/UI/Hamburger';
+import DayItem from '../components/DayItem';
 
 interface mainPageProps {
     data: IWeather | undefined
@@ -23,11 +25,7 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city, setI
 
     return (
         <>
-            <div onClick={() => setIsSidebar(true)} className='absolute cursor-pointer top-3 left-3 h-[17px] w-[20px] flex flex-col justify-between md:opacity-0 md:pointer-events-none md:hidden'>
-                <span className='dark:bg-white shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
-                <span className='dark:bg-white shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
-                <span className='dark:bg-white shrink-0 grow-0 h-[4px] w-[20px] bg-black rounded block'></span>
-            </div>
+            <Hamburger setIsSidebar={setIsSidebar}/>
             {isError && city.length > 0 && <ErrorBlock/>}
             {isLoading && <Loader/>}
             {!isLoading && city.length === 0 && <div className='dark:text-white flex justify-center items-center h-[100%] w-[100%] text-center'>You`ve not chosen any city</div>}
@@ -38,16 +36,7 @@ const MainPage: React.FC<mainPageProps> = ({data, isError, isLoading, city, setI
                         <div className='text-sm dark:text-gray-400 text-gray-500 text-center mx-auto'>Today is {data.forecast.forecastday[0].date.replaceAll('-', '.')}</div>
                         <ul className='myscrollbar max-w-[100%] relative flex flex-wrap justify-center items-center mx-auto'>
                             {forecastDay !== undefined && data.forecast.forecastday.map(day => (
-                                <li
-                                    onClick={() => {
-                                        setForecastDay(day)
-                                    }}
-                                    className={forecastDay.date === day.date 
-                                        ? 'dark:bg-violet-700 dark:hover:bg-violet-700 dark:text-white dark:border-violet-300 dark:bg-[#323436] active text-sm shrink-0 my-2 mx-1 border-2 border-indigo-200 rounded-[20px] px-2 py-1 hover:bg-indigo-100 shadow-md transition-all cursor-pointer'
-                                        : 'dark:text-white dark:hover:bg-violet-700 dark:border-violet-300 dark:bg-[#323436] text-sm bg-gray-900/[.02] shrink-0 my-2 mx-1 border-2 border-indigo-200 rounded-[20px] px-2 py-1 hover:bg-indigo-100 shadow-md transition-all cursor-pointer' 
-                                    }
-                                    key={day.date}
-                                >{day.date.replaceAll('-', '.')}</li>
+                                <DayItem key={day.date} day={day} forecastDay={forecastDay} setForecastDay={setForecastDay}/>
                             ))}
                         </ul>
                     </div>
