@@ -6,7 +6,7 @@ export const weatherApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://api.weatherapi.com/v1/',
         headers: {
-            key: 'c8417e58ab8a40ebafa212717232710'
+            key: 'c8417e58ab8a40ebafa212717232710' 
         }
     }), 
     endpoints: build => ({
