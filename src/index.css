@@ -19,11 +19,11 @@
 .toggle-checkbox:checked {
     @apply: right-0 border-indigo-200;
     right: 0;
-    border-color: rgb(199 210 254);
+    border-color: rgb(109 40 217);
 }
 .toggle-checkbox:checked + .toggle-label {
     @apply: bg-indigo-200;
-    background-color: rgb(199 210 254);
+    background-color: rgb(109 40 217);
 }
 .noborder:first-of-type {
     border-top-width: 0; 
