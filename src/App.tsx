@@ -6,7 +6,7 @@ import MainPage from './pages/MainPage';
 
 function App() {
 	const [city, setCity] = useState('')
-	const [trigger, {isError, isLoading, data}] = useLazyGetWeatherQuery()
+	const [trigger, {isError, isLoading, isFetching, data}] = useLazyGetWeatherQuery()
 	const [isSidebar, setIsSidebar] = useState(false)
 	const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem('theme')!) === 'dark')
 
@@ -26,7 +26,7 @@ function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Layout darkMode={darkMode} setDarkMode={setDarkMode} isSidebar={isSidebar} setIsSidebar={setIsSidebar} chosenCity={city} setCity={setCity}/>}>
-				<Route index element={<MainPage darkMode={darkMode} setIsSidebar={setIsSidebar} city={city} isLoading={isLoading} isError={isError} data={data} />}/>
+				<Route index element={<MainPage isFetching={isFetching} darkMode={darkMode} setIsSidebar={setIsSidebar} city={city} isLoading={isLoading} isError={isError} data={data} />}/>
 			</Route>
 		</Routes>
 	);
